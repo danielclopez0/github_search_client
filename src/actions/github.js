@@ -1,10 +1,10 @@
-export const directGitHubQuery = (searchString) => dispatch => {
+export const directGitHubQuery = (searchString, sort) => dispatch => {
   dispatch({
     type: 'DIRECT_SEARCH_REQUEST',
     searchString
   })
 
-  const url = 'https://api.github.com/search/repositories?q=topic:ruby+topic:rails';
+  const url = `https://api.github.com/search/repositories?q=topic:ruby+topic:rails&sort=${sort}&order=desc`;
   const headers = {};
 
   return fetch(url, { headers })
