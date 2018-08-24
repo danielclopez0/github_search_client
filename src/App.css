@@ -26,3 +26,24 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.repoCard {
+  width: 15em;
+  border: 1px solid black;
+  margin: 2px;
+  text-decoration: none;
+  font-size: 15px;
+  color: black;
+}
+
+.cardHeader {
+  font-size: 30px;
+  font-weight: bold;
+}

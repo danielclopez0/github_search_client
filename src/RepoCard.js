@@ -1,10 +1,14 @@
 import React from 'react';
 
-const RepoCard = ({ name, score, stars, url }) => (
-  <a href={url}>
-    <div className="repoCard" key={name}>
-      {`name: ${name} | relevance: ${score} | stars: ${stars}`}
-    </div>
+const RepoCard = ({ description, language, name, owner, score, stars, url }) => (
+  <a href={url} className="repoCard">
+    <div className="cardHeader">{name}</div>
+    <div>{description}</div>
+    <br />
+    <div>{`Owner: ${owner}`}</div>
+    <div>{`Language: ${language}`}</div>
+    <div>{`Relevance: ${score} `}</div>
+    <div>{`Stars: ${stars} `}</div>
   </a>
 )
 
