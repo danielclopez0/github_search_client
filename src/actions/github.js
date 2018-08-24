@@ -4,6 +4,8 @@ export const gitHubQuery = (searchString, sort) => dispatch => {
     searchString
   })
 
+  //TODO: validate search string
+
   const url = `http://localhost:3001/repo/${searchString}/${sort}`;
 
   return fetch(url)
