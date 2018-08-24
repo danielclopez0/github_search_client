@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
 
+import { directGitHubQuery } from './actions/github';
+
 class App extends Component {
+  componentDidMount() {
+    this.props.directGitHubQuery();
+  }
+
   render() {
     return (
       <div className="App">
@@ -18,4 +25,12 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  repos: state.github.items
+})
+
+const mapDispatchToProps = dispatch => ({
+  directGitHubQuery: (query) => dispatch(directGitHubQuery(query))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
