@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
+import RepoCard from './RepoCard';
 
 import { directGitHubQuery } from './actions/github';
 
@@ -11,6 +12,8 @@ class App extends Component {
   }
 
   render() {
+    const { repos } = this.props;
+
     return (
       <div className="App">
         <header className="App-header">
@@ -18,7 +21,15 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          {repos && repos.length > 0 &&
+            <div className="container">
+              {repos.map(repo => {
+                const { name, score, stargazers_count, html_url } = repo;
+                return <RepoCard name={name} score={score} stars={stargazers_count} url={html_url} />;
+              }
+              )}
+            </div>
+          }
         </p>
       </div>
     );
