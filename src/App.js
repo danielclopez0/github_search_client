@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import RepoCard from './RepoCard';
 import Sort from './Sort';
+import Search from './Search';
 
 import { directGitHubQuery } from './actions/github';
 
@@ -12,14 +13,14 @@ class App extends Component {
     super(props);
     this.state = {
       sort: 'score',
-      searchString: ''
     }
 
+    this.updateSearch = this.updateSearch.bind(this);
     this.updateSort = this.updateSort.bind(this);
   }
 
-  componentDidMount() {
-    this.props.directGitHubQuery('test',this.state.sort);
+  updateSearch(string) {
+    this.props.directGitHubQuery(string,this.state.sort);
   }
 
   updateSort(sort) {
@@ -37,11 +38,12 @@ class App extends Component {
           <h1 className="App-title">Github Query Guy</h1>
         </header>
         <div className="App-intro">
+          <div className="header">
+            <Search action={this.updateSearch} />
+            <Sort action={this.updateSort} currentVal={this.state.sort}/>
+          </div>
           {repos && repos.length > 0 &&
             <div>
-              <div className="header">
-                <Sort action={this.updateSort} currentVal={this.state.sort}/>
-              </div>
               <div className="container">
                 {repos.map(repo => {
                   const { description, html_url, language, name, owner, score, stargazers_count } = repo;
