@@ -6,13 +6,14 @@ import RepoCard from './RepoCard';
 import Sort from './Sort';
 import Search from './Search';
 
-import { directGitHubQuery } from './actions/github';
+import { gitHubQuery } from './actions/github';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       sort: 'score',
+      string: ''
     }
 
     this.updateSearch = this.updateSearch.bind(this);
@@ -20,16 +21,18 @@ class App extends Component {
   }
 
   updateSearch(string) {
-    this.props.directGitHubQuery(string,this.state.sort);
+    this.setState({string});
+    this.props.gitHubQuery(string,this.state.sort);
   }
 
   updateSort(sort) {
     this.setState({sort});
-    this.props.directGitHubQuery('test',sort);
+    this.props.gitHubQuery(this.state.string,sort);
   }
 
   render() {
     const { repos } = this.props;
+    const { string, sort } = this.state;
 
     return (
       <div className="App">
@@ -39,17 +42,20 @@ class App extends Component {
         </header>
         <div className="App-intro">
           <div className="header">
-            <Search action={this.updateSearch} />
-            <Sort action={this.updateSort} currentVal={this.state.sort}/>
+            <Search action={this.updateSearch}/>
+            <Sort action={this.updateSort} currentVal={sort}/>
           </div>
           {repos && repos.length > 0 &&
             <div>
+              {string.length > 0 &&
+                <div>{`Search Term: ${string}`}</div>
+              }
               <div className="container">
-                {repos.map(repo => {
+                {repos.map((repo, index) => {
                   const { description, html_url, language, name, owner, score, stargazers_count } = repo;
                   return <RepoCard
                           description={description}
-                          key={name}
+                          key={name+index}
                           language={language}
                           name={name}
                           owner={owner.login}
@@ -73,7 +79,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  directGitHubQuery: (query, sort) => dispatch(directGitHubQuery(query, sort))
+  gitHubQuery: (query, sort) => dispatch(gitHubQuery(query, sort))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
