@@ -28,7 +28,7 @@
 }
 
 .header {
-  
+
 }
 
 .container {
@@ -44,6 +44,7 @@
   text-decoration: none;
   font-size: 15px;
   color: black;
+  overflow: hidden;
 }
 
 .cardHeader {

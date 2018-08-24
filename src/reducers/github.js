@@ -15,7 +15,6 @@ export default (state = defaultState, action) => {
       }
 
     case 'DIRECT_SEARCH_RECEIVED':
-      console.log('search received',payload);
       return {
         fetching: false,
         items: payload.items,

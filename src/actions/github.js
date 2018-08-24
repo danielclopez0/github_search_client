@@ -5,9 +5,8 @@ export const directGitHubQuery = (searchString, sort) => dispatch => {
   })
 
   const url = `https://api.github.com/search/repositories?q=${searchString}&sort=${sort}&order=desc`;
-  const headers = {};
 
-  return fetch(url, { headers })
+  return fetch(url)
     .then(resp => resp.json())
     .then(data => {
       dispatch({
